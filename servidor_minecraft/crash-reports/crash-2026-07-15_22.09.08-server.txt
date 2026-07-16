@@ -1,0 +1,175 @@
+---- Minecraft Crash Report ----
+// Why is it breaking :(
+
+Time: 7/15/26, 10:09 PM
+Description: Exception generating new chunk
+
+java.lang.IllegalStateException: Feature order cycle found, involved biomes: [Reference{ResourceKey[minecraft:worldgen/biome / yungscavebiomes:lost_caves]=net.minecraft.world.level.biome.Biome@26be8835}]
+	at net.minecraft.world.level.biome.BiomeSource.m_186727_(BiomeSource.java:136) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at net.minecraft.world.level.biome.BiomeSource.md3386e7$lambda$updateFeaturesPerStep$0$0(BiomeSource.java:590) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:183) ~[guava-31.0.1-jre.jar%2323!/:?] {}
+	at net.minecraft.world.level.biome.BiomeSource.m_186733_(BiomeSource.java:258) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at net.minecraft.world.level.chunk.ChunkGenerator.m_183372_(ChunkGenerator.java:401) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:computing_frames,re:mixin,re:classloading}
+	at net.minecraft.world.level.chunk.ChunkStatus.m_187807_(ChunkStatus.java:135) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.chunk.ChunkStatus.m_187788_(ChunkStatus.java:262) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$22(ChunkMap.java:589) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.1.27.jar%2326!/:?] {}
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$24(ChunkMap.java:587) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at net.minecraft.server.level.ChunkTaskPriorityQueueSorter.m_143188_(ChunkTaskPriorityQueueSorter.java:62) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18759_(ProcessorMailbox.java:91) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18747_(ProcessorMailbox.java:146) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.run(ProcessorMailbox.java:102) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?] {}
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Suspected Mod: 
+	TerraBlender (terrablender), Version: 1.2.0.126
+		Issue tracker URL: https://github.com/Glitchfiend/TerraBlender/issues
+		Mixin class: terrablender.mixin.MixinBiomeSource
+		Target: net.minecraft.world.level.biome.BiomeSource
+		at TRANSFORMER/minecraft@1.18.2/net.minecraft.world.level.biome.BiomeSource.md3386e7$lambda$updateFeaturesPerStep$0$0(BiomeSource.java:590)
+Stacktrace:
+	at net.minecraft.world.level.biome.BiomeSource.m_186727_(BiomeSource.java:136) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at net.minecraft.world.level.biome.BiomeSource.md3386e7$lambda$updateFeaturesPerStep$0$0(BiomeSource.java:590) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:183) ~[guava-31.0.1-jre.jar%2323!/:?] {}
+	at net.minecraft.world.level.biome.BiomeSource.m_186733_(BiomeSource.java:258) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:terrablender_forge.mixins.json:MixinBiomeSource,pl:mixin:A}
+	at net.minecraft.world.level.chunk.ChunkGenerator.m_183372_(ChunkGenerator.java:401) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:computing_frames,re:mixin,re:classloading}
+	at net.minecraft.world.level.chunk.ChunkStatus.m_187807_(ChunkStatus.java:135) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.chunk.ChunkStatus.m_187788_(ChunkStatus.java:262) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$22(ChunkMap.java:589) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.1.27.jar%2326!/:?] {}
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$24(ChunkMap.java:587) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at net.minecraft.server.level.ChunkTaskPriorityQueueSorter.m_143188_(ChunkTaskPriorityQueueSorter.java:62) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18759_(ProcessorMailbox.java:91) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18747_(ProcessorMailbox.java:146) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.run(ProcessorMailbox.java:102) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+-- Chunk to be generated --
+Details:
+	Location: -1,-1
+	Position hash: -1
+	Generator: net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator@59c6d0ba
+Stacktrace:
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$22(ChunkMap.java:589) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.1.27.jar%2326!/:?] {}
+	at net.minecraft.server.level.ChunkMap.lambda$scheduleChunkGeneration$24(ChunkMap.java:587) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at net.minecraft.server.level.ChunkTaskPriorityQueueSorter.m_143188_(ChunkTaskPriorityQueueSorter.java:62) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18759_(ProcessorMailbox.java:91) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.m_18747_(ProcessorMailbox.java:146) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at net.minecraft.util.thread.ProcessorMailbox.run(ProcessorMailbox.java:102) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading}
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?] {}
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 0 total; []
+	Chunk stats: 625
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (8,64,8), Section: (at 8,0,8 in 0,4,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Level time: 0 game time, 0 day time
+	Level name: world
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Known server brands: forge
+	Level was modded: true
+	Level storage version: 0x04ABD - Anvil
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.m_129815_(MinecraftServer.java:373) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:xaerohud.mixins.json:MixinMinecraftServer,pl:mixin:A}
+	at net.minecraft.server.MinecraftServer.m_130006_(MinecraftServer.java:316) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:xaerohud.mixins.json:MixinMinecraftServer,pl:mixin:A}
+	at net.minecraft.server.dedicated.DedicatedServer.m_7038_(DedicatedServer.java:173) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:661) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:xaerohud.mixins.json:MixinMinecraftServer,pl:mixin:A}
+	at net.minecraft.server.MinecraftServer.m_177918_(MinecraftServer.java:261) ~[server-1.18.2-20220404.173914-srg.jar%2354!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:xaerohud.mixins.json:MixinMinecraftServer,pl:mixin:A}
+	at java.lang.Thread.run(Thread.java:840) [?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.18.2
+	Minecraft Version ID: 1.18.2
+	Operating System: Linux (amd64) version 6.8.0-1052-azure
+	Java Version: 17.0.19, Ubuntu
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Ubuntu
+	Memory: 1819289392 bytes (1735 MiB) / 4756340736 bytes (4536 MiB) up to 12884901888 bytes (12288 MiB)
+	CPUs: 4
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD EPYC 9V74 80-Core Processor
+	Identifier: AuthenticAMD Family 25 Model 17 Stepping 1
+	Microarchitecture: Zen 3
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 2
+	Number of logical CPUs: 4
+	Graphics card #0 name: unknown
+	Graphics card #0 vendor: unknown
+	Graphics card #0 VRAM (MB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MB): 7997.93
+	Virtual memory used (MB): 7522.19
+	Swap memory total (MB): 0.00
+	Swap memory used (MB): 0.00
+	JVM Flags: 2 total; -Xms2G -Xmx12G
+	Server Running: true
+	Player Count: 0 / 20; []
+	Data Packs: vanilla, mod:yungsapi, mod:terrablender (incompatible), mod:bookshelf, mod:biomesoplenty (incompatible), mod:jei (incompatible), mod:betterendisland, mod:xaerolib (incompatible), mod:forge, mod:dynamictrees (incompatible), mod:dynamictreesplus (incompatible), mod:dtbop (incompatible), mod:xaerominimap (incompatible), mod:geckolib3 (incompatible), mod:yungscavebiomes, mod:travelersbackpack (incompatible)
+	World Generation: Stable
+	Is Modded: Definitely; Server brand changed to 'forge'
+	Type: Dedicated Server (map_server.txt)
+	ModLauncher: 9.1.3+9.1.3+main.9b69c82a
+	ModLauncher launch target: forgeserver
+	ModLauncher naming: srg
+	ModLauncher services: 
+		 mixin PLUGINSERVICE 
+		 eventbus PLUGINSERVICE 
+		 slf4jfixer PLUGINSERVICE 
+		 object_holder_definalize PLUGINSERVICE 
+		 runtime_enum_extender PLUGINSERVICE 
+		 capability_token_subclass PLUGINSERVICE 
+		 accesstransformer PLUGINSERVICE 
+		 runtimedistcleaner PLUGINSERVICE 
+		 mixin TRANSFORMATIONSERVICE 
+		 fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		server-1.18.2-20220404.173914-srg.jar             |Minecraft                     |minecraft                     |1.18.2              |DONE      |Manifest: NOSIGNATURE
+		YungsApi-1.18.2-Forge-2.2.9.jar                   |YUNG's API                    |yungsapi                      |1.18.2-Forge-2.2.9  |DONE      |Manifest: NOSIGNATURE
+		TerraBlender-forge-1.18.2-1.2.0.126.jar           |TerraBlender                  |terrablender                  |1.2.0.126           |DONE      |Manifest: NOSIGNATURE
+		Bookshelf-Forge-1.18.2-13.3.56.jar                |Bookshelf                     |bookshelf                     |13.3.56             |DONE      |Manifest: eb:c4:b1:67:8b:f9:0c:db:dc:4f:01:b1:8e:61:64:39:4c:10:85:0b:a6:c4:c7:48:f0:fa:95:f2:cb:08:3a:e5
+		BiomesOPlenty-1.18.2-16.0.0.109-universal.jar     |Biomes O' Plenty              |biomesoplenty                 |1.18.2-16.0.0.109   |DONE      |Manifest: NOSIGNATURE
+		jei-1.18.2-9.7.1.255.jar                          |Just Enough Items             |jei                           |9.7.1.255           |DONE      |Manifest: NOSIGNATURE
+		YungsBetterEndIsland-1.18.2-Forge-1.0.jar         |YUNG's Better End Island      |betterendisland               |1.18.2-Forge-1.0    |DONE      |Manifest: NOSIGNATURE
+		xaerolib-forge-1.18.2-1.5.0.jar                   |XaeroLib                      |xaerolib                      |1.5.0               |DONE      |Manifest: NOSIGNATURE
+		forge-1.18.2-40.2.21-universal.jar                |Forge                         |forge                         |40.2.21             |DONE      |Manifest: 84:ce:76:e8:45:35:e4:0e:63:86:df:47:59:80:0f:67:6c:c1:5f:6e:5f:4d:b3:54:47:1a:9f:7f:ed:5e:f2:90
+		DynamicTrees-1.18.2-1.0.4.jar                     |Dynamic Trees                 |dynamictrees                  |1.18.2-1.0.4        |DONE      |Manifest: NOSIGNATURE
+		DynamicTreesPlus-1.18.2-1.0.5.jar                 |Dynamic Trees Plus            |dynamictreesplus              |1.18.2-1.0.5        |DONE      |Manifest: NOSIGNATURE
+		DynamicTreesBOP-1.18.2-3.0.2.jar                  |Dynamic Trees for Biomes o' Pl|dtbop                         |1.18.2-3.0.2        |DONE      |Manifest: NOSIGNATURE
+		xaerominimap-forge-1.18.2-26.2.0.jar              |Xaero's Minimap               |xaerominimap                  |26.2.0              |DONE      |Manifest: NOSIGNATURE
+		geckolib-forge-1.18-3.0.57.jar                    |GeckoLib                      |geckolib3                     |3.0.57              |DONE      |Manifest: NOSIGNATURE
+		YungsCaveBiomes-1.18.2-Forge-1.1.1.jar            |YUNG's Cave Biomes            |yungscavebiomes               |1.18.2-Forge-1.1.1  |DONE      |Manifest: NOSIGNATURE
+		travelersbackpack-forge-1.18.2-7.1.49.jar         |Traveler's Backpack           |travelersbackpack             |7.1.49              |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: b7c88f82-526b-4ce1-89ce-be8e7a94b07d
+	FML: 40.2
+	Forge: net.minecraftforge:40.2.21
